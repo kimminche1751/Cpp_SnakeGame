@@ -1,0 +1,55 @@
+역할 분담
+
+A — Map & ncurses 출력 담당(게임 화면 담당)
+
+  -2D 배열 Map 구현 (21x21 이상)
+
+  -Wall / Immune Wall 구분
+
+  -ncurses로 맵 출력
+
+  -색깔/문자 표시
+
+결과물 : Map.cpp, Renderer.cpp
+
+
+B — Snake & 입력 담당(움직임 + 입력 담당)
+
+  -Snake 이동 로직 (tick 기반)
+
+  -방향키 입력 처리
+
+  -반대 방향 금지
+
+  -몸 충돌 체크
+
+결과물 : Snake.cpp, Input.cpp
+
+* 참고 : 교수님께서 tick 관련 추가 사항 넣으라 하셔서 구현 전에 논의 필요함
+
+  
+C — Item + Gate 담당 (난이도 높음, 게임 세부 요소 담당)
+
+  -Growth / Poison 아이템 생성 및 삭제
+
+  -아이템 효과 적용
+
+  -Gate 생성 (쌍)
+
+  -Gate 통과 + 방향 처리 (제일 중요)
+
+결과물 : Item.cpp, Gate.cpp
+
+* 참고 : 교수님께서 item 관련 추가 사항 넣으라 하셔서 구현 전에 논의 필요함
+
+D — Game & ScoreBoard 담당 (전체 통합 + 게임 흐름)
+
+  -게임 루프 관리 (tick, 상태 업데이트)
+
+  -ScoreBoard 구현
+
+  -Mission 체크
+
+  -Game Over 처리
+
+결과물 : Game.cpp, ScoreBoard.cpp, main.cpp

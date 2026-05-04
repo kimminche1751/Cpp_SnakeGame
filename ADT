@@ -1,0 +1,239 @@
+// snake_game_adt.h
+
+#ifndef SNAKE_GAME_ADT_H
+#define SNAKE_GAME_ADT_H
+
+#include <vector>
+#include <utility>
+
+using namespace std;
+
+// ==========================
+// 기본 자료형 정의
+// ==========================
+
+// 좌표 (Map에서 위치 표현)
+typedef pair<int, int> Position;
+
+// 방향 정의
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+// ==========================
+// Map ADT
+// ==========================
+class Map {
+private:
+    vector<vector<int>> grid; 
+    int width, height;
+
+public:
+    /*
+    [구현해야 할 것]
+    - 2차원 배열로 맵 구성 (최소 21x21)
+    - 각 요소 의미:
+        0: 빈 공간
+        1: Wall
+        2: Immune Wall
+        3: Snake Head
+        4: Snake Body
+        5: Growth Item
+        6: Poison Item
+        7: Gate
+    */
+
+    Map(int w, int h);
+
+    // 맵 초기화 (벽, Immune Wall 배치)
+    void initialize();
+
+    // 특정 위치 값 가져오기
+    int getCell(int x, int y);
+
+    // 특정 위치 값 설정
+    void setCell(int x, int y, int value);
+
+    // 맵 범위 체크
+    bool isInside(int x, int y);
+
+    // 빈 공간인지 확인 (아이템 생성용)
+    bool isEmpty(int x, int y);
+};
+
+// ==========================
+// Snake ADT
+// ==========================
+class Snake {
+private:
+    vector<Position> body; // head = body[0]
+    Direction dir;
+
+public:
+    /*
+    [구현해야 할 것 - Rule #1]
+    - Snake는 반대 방향 이동 금지
+    - 일정 tick마다 이동
+    - 자기 몸 충돌 시 게임오버
+    - 벽 충돌 시 게임오버
+    */
+
+    Snake(Position start);
+
+    // 방향 설정 (반대 방향 입력 무시)
+    void setDirection(Direction newDir);
+
+    // 현재 방향 반환
+    Direction getDirection();
+
+    // 이동 (head 추가, tail 제거)
+    void move();
+
+    // 성장 (Growth Item)
+    void grow();
+
+    // 길이 감소 (Poison Item)
+    void shrink();
+
+    // 머리 위치
+    Position getHead();
+
+    // 몸 전체 반환
+    vector<Position> getBody();
+
+    // 자기 자신과 충돌 체크
+    bool checkSelfCollision();
+};
+
+// ==========================
+// Item ADT
+// ==========================
+class Item {
+private:
+    vector<Position> growthItems;
+    vector<Position> poisonItems;
+
+public:
+    /*
+    [구현해야 할 것 - Rule #2]
+    - Growth: 길이 +1
+    - Poison: 길이 -1 (길이 3 미만이면 실패)
+    - 아이템은 랜덤 위치 생성
+    - 일정 시간 후 사라짐
+    - 최대 3개 유지
+    */
+
+    void spawnGrowth(Map& map);
+    void spawnPoison(Map& map);
+
+    // 아이템 삭제 (시간 경과)
+    void removeOldItems();
+
+    // Snake와 충돌 체크
+    int checkCollision(Position head);
+};
+
+// ==========================
+// Gate ADT
+// ==========================
+class Gate {
+private:
+    Position gateA;
+    Position gateB;
+
+public:
+    /*
+    [구현해야 할 것 - Rule #3, #4]
+    - Gate는 항상 2개 쌍
+    - 벽에서 생성
+    - 진입하면 반대쪽으로 이동
+    - 진출 방향 결정 규칙:
+        1. 가장자리 → 무조건 안쪽 방향
+        2. 내부 → 우선순위:
+            - 현재 방향
+            - 시계 방향
+            - 반시계 방향
+            - 반대 방향
+    */
+
+    void generate(Map& map);
+
+    // 게이트 통과 처리
+    Position teleport(Position current, Direction& dir, Map& map);
+};
+
+// ==========================
+// ScoreBoard ADT
+// ==========================
+class ScoreBoard {
+private:
+    int currentLength;
+    int maxLength;
+    int growthCount;
+    int poisonCount;
+    int gateCount;
+
+public:
+    /*
+    [구현해야 할 것 - Rule #6]
+    - 현재 길이 / 최대 길이
+    - 성장 아이템 획득 수
+    - 독 아이템 획득 수
+    - 게이트 사용 횟수
+    - 미션 달성 여부
+    */
+
+    void updateLength(int len);
+    void recordGrowth();
+    void recordPoison();
+    void recordGate();
+
+    void print(); // ncurses로 출력
+};
+
+// ==========================
+// Game ADT (전체 관리)
+// ==========================
+class Game {
+private:
+    Map map;
+    Snake snake;
+    Item item;
+    Gate gate;
+    ScoreBoard score;
+
+public:
+    /*
+    [구현해야 할 것]
+    - 전체 게임 루프 관리
+    - 입력 처리 (방향키)
+    - tick 기반 이동
+    - 충돌 검사
+    - 단계별 기능 구현 (1~5단계)
+    */
+
+    Game();
+
+    // 초기화
+    void init();
+
+    // 게임 실행
+    void run();
+
+    // 입력 처리
+    void processInput();
+
+    // 상태 업데이트
+    void update();
+
+    // 화면 출력 (ncurses)
+    void render();
+
+    // 게임 종료 조건 체크
+    bool isGameOver();
+};
+
+#endif

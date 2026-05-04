@@ -9,7 +9,7 @@
 
 ✔ 자료형
 
-typedef pair<int, int> Position;
+typedef pair<int, int> Position; // 좌표 정의
 
 enum Direction {
     UP,
@@ -17,6 +17,7 @@ enum Direction {
     LEFT,
     RIGHT
 };
+// 방향 정의
 
 ✔ Map 데이터 값 규칙 (필수 통일)
 

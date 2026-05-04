@@ -1,0 +1,132 @@
+개발할 때 필요한 함수 이름, 리턴값 등등을 통일한 자료 입니다, 
+이거 안 지키시면 진짜 복잡해지니깐 무조건!! 숙지해주세요
+
+✔ 함수 이름 절대 변경 금지
+✔ 반환 타입 변경 금지
+✔ Map 값 규칙 변경 금지
+
+1️⃣ 공통 정의
+
+✔ 자료형
+
+typedef pair<int, int> Position;
+
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+✔ Map 데이터 값 규칙 (필수 통일)
+
+| 값 | 의미          |
+| - | ----------- |
+| 0 | 빈 공간        |
+| 1 | Wall        |
+| 2 | Immune Wall |
+| 3 | Snake Head  |
+| 4 | Snake Body  |
+| 5 | Growth Item |
+| 6 | Poison Item |
+| 7 | Gate        |
+
+
+
+2️⃣ Map 인터페이스
+
+| 함수                                      | 설명             |
+| --------------------------------------- | -------------- |
+| `Map(int w, int h)`                     | 맵 생성           |
+| `void initialize()`                     | 초기 맵 구성 (벽 배치) |
+| `int getCell(int x, int y)`             | 특정 위치 값 반환     |
+| `void setCell(int x, int y, int value)` | 특정 위치 값 설정     |
+| `bool isInside(int x, int y)`           | 맵 범위 체크        |
+| `bool isEmpty(int x, int y)`            | 빈 공간인지 확인      |
+
+
+3️⃣ Snake 인터페이스
+
+| 함수                                 | 설명               |
+| ---------------------------------- | ---------------- |
+| `Snake(Position start)`            | 초기 위치 생성         |
+| `void setDirection(Direction dir)` | 방향 설정 (반대 방향 무시) |
+| `Direction getDirection()`         | 현재 방향 반환         |
+| `void move()`                      | 한 칸 이동           |
+| `void grow()`                      | 길이 +1            |
+| `void shrink()`                    | 길이 -1            |
+| `Position getHead()`               | 머리 위치            |
+| `vector<Position> getBody()`       | 전체 몸             |
+| `bool checkSelfCollision()`        | 자기 충돌 체크         |
+
+
+4️⃣ Item 인터페이스
+
+| 함수                                  | 설명         |
+| ----------------------------------- | ---------- |
+| `void spawnGrowth(Map&)`            | Growth 생성  |
+| `void spawnPoison(Map&)`            | Poison 생성  |
+| `void removeOldItems()`             | 일정 시간 후 삭제 |
+| `int checkCollision(Position head)` | 충돌 시 타입 반환 |
+
+
+5️⃣ Gate 인터페이스
+
+| 함수                                             | 설명      |
+| ----------------------------------------------- | -------   |
+| `void generate(Map&)`                           | Gate 생성 |
+| `Position teleport(Position, Direction&, Map&)` | 이동 처리  |
+
+✔ teleport 동작 규칙
+
+입력:
+
+Position currentHead
+Direction currentDirection
+
+출력:
+
+새로운 위치 + 변경된 방향
+
+6️⃣ ScoreBoard 인터페이스
+
+| 함수                           | 설명         |
+| ---------------------------- | ---------- |
+| `void updateLength(int len)` | 길이 갱신      |
+| `void recordGrowth()`        | Growth 횟수  |
+| `void recordPoison()`        | Poison 횟수  |
+| `void recordGate()`          | Gate 사용 횟수 |
+| `void print()`               | 화면 출력      |
+
+✔ 표시 정보
+현재 길이 / 최대 길이
+Growth 획득 수
+Poison 획득 수
+Gate 사용 횟수
+
+7️⃣ Game 인터페이스 (전체 관리)
+
+| 함수                    | 설명      |
+| --------------------- | ------- |
+| `Game()`              | 생성자     |
+| `void init()`         | 초기화     |
+| `void run()`          | 게임 실행   |
+| `void processInput()` | 입력 처리   |
+| `void update()`       | 상태 업데이트 |
+| `void render()`       | 화면 출력   |
+| `bool isGameOver()`   | 종료 여부   |
+
+
+8️⃣ 🔁 게임 루프 흐름
+
+while (!gameOver) {
+    processInput();   // 키 입력
+    update();         // 상태 변경
+    render();         // 화면 출력
+}
+
+
+
+
+
+

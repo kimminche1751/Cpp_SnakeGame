@@ -45,3 +45,12 @@ bool Map::isEmpty(int x, int y){
         return true;
     return false;
 };
+
+// width, height 값 가져오기
+int getWidth(){
+    return width;
+};
+
+int getHeight(){
+    return height;
+};

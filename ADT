@@ -115,6 +115,9 @@ class Item {
 private:
     vector<Position> growthItems;
     vector<Position> poisonItems;
+/* 수정사항 : 아이템 시간정보 컨테이너 2개 추가*/
+    vector<unsigned int> growthItemTime;
+    vector<unsigned int> growthItemTime;
 
 public:
     /*
@@ -130,7 +133,7 @@ public:
     void spawnPoison(Map& map);
 
     // 아이템 삭제 (시간 경과)
-    void removeOldItems();
+    void removeOldItems(Map& map); //Map 객체 참조 파라미터 map 추가
 
     // Snake와 충돌 체크
     int checkCollision(Position head);

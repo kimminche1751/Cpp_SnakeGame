@@ -137,6 +137,12 @@ public:
 
     // Snake와 충돌 체크
     int checkCollision(Position head);
+    /*
+        [반환값]
+        growth 아이템 : 5
+        poison 아이템 : 6
+        *추후 아이템 추가 시 배열 요소에 할당되는 번호와 통일하여 작성 예정
+    */
 };
 
 // ==========================

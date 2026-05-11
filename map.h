@@ -70,6 +70,11 @@ public:
 
     // 빈 공간인지 확인 (아이템 생성용)
     bool isEmpty(int x, int y);
+
+    // width, height 값 가져오기
+    int getWidth();
+
+    int getHeight();
 };
 
 #endif

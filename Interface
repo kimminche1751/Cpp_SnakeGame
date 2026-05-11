@@ -67,7 +67,7 @@ enum Direction {
 | ----------------------------------- | ---------- |
 | `void spawnGrowth(Map&)`            | Growth 생성  |
 | `void spawnPoison(Map&)`            | Poison 생성  |
-| `void removeOldItems()`             | 일정 시간 후 삭제 |
+| `void removeOldItems(Map&)`             | 일정 시간 후 삭제 | //ADT에 맞게 인터페이스의 파라미터 수정
 | `int checkCollision(Position head)` | 충돌 시 타입 반환 |
 
 

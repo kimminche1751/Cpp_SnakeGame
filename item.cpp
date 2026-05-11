@@ -67,50 +67,23 @@ void Item::removeOldItems(Map& map){
     }
 }
 
-/*
-checkCollision 함수 구현 과정에서 이해가 되지 않는 부분이 있어 함수를 2가지로 구현을 진행하였음.
-
-1번으로 구현하는 경우 아이템 충돌 이후 아이템의 효과 처리 및 아이템 위치정보와 시간정보 삭제 과정을
-따로 구현해야하는 문제가 있음
-
-2번으로 구현하는 경우 기존의 추상 자료형에 맞지 않는 부분이 있어 수정이 필요함
-*/
-
-//구현 1 : 뱀 머리의 위치를 받아 아이템과 충돌 시 해당하는 아이템 반환
+// 뱀 머리의 위치를 받아 아이템과 충돌 시 해당하는 아이템 정보를 제거하고 해당하는 종류에 따라 숫자 반환
 int Item::checkCollision(Position head){
     int y = head.first;
     int x = head.second;
     for(int i = 0; i != growthItems.size(); i++){ //for문으로 위치 정보 컨테이너를 순회하며
         if(head == growthItems[i]){//머리의 위치와 growth 아이템의 위치가 같으면
+            growthItems.erase(growthItems.begin() + i); //충돌한 아이템 위치정보 제거
+            growthItemTime.erase(growthItemTime.begin() + i); //중돌한 아이템 시간정보 제거
+            i--; //erase()를 실행하면 뒤의 원소들이 한칸씩 당겨지므로 i를 1 감소시킴
             return 5; //5(growth)를 반환
         }
     }
     for(int i = 0; i != poisonItems.size(); i++){
         if(head == poisonItems[i]){
-            return 6;
+            poisonItems.erase(poisonItems.begin() + i);
+            poisonItemTime.erase(poisonItemTime.begin() + i);
+            return 6; //poison은 6 반환
         }
     }
 }
-
-//구현 2 : Snake 객체를 받아 충돌 시 아이템
-/*int Item::checkCollision(Snake &S){
-
-    int y = S.getHead().first;
-    int x = S.getHead().second;
-    for(int i = 0; i != growthItems.size(); i++){ //for문으로 위치 정보 컨테이너를 순회하며
-        if(head == growthItems[i]){//머리의 위치와 growth 아이템의 위치가 같으면
-            S.grow(); //뱀의 길이를 1 증가시키고
-            growthItems.erase(growthItems.begin() + i); //소멸된 아이템 위치정보 제거
-            growthItemTime.erase(growthItemTime.begin() + i); //소멸된 아이템 시간정보 제거
-            i--; //erase()를 실행하면 뒤의 원소들이 한칸씩 당겨지므로 i를 1 감소시킴
-        }
-    }
-    for(int i = 0; i != poisonItems.size(); i++){
-        if(head == poisonItems[i]){
-            S.shrink();
-            poisonItems.erase(poisonItems.begin() + i);
-            poisonItemTime.erase(poisonItemTime.begin() + i);
-            i--;
-        }
-    }
-}*/

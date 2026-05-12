@@ -94,3 +94,7 @@ bool Snake::checkSelfCollision() {
 
     return false;
 }
+
+void Snake::teleportHead(Position newPos) {
+    body[0] = newPos;
+}

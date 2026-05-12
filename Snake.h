@@ -38,6 +38,8 @@ public:
     vector<Position> getBody();
 
     bool checkSelfCollision();
+
+    void teleportHead(Position newPos);
 };
 
 #endif

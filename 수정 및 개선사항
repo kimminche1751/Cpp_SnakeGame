@@ -1,0 +1,15 @@
+- 주요 수정사항 -
+
+파일명 대문자로 통일
+Input.cpp 및 Input.h파일: 삭제(Game파일의 processInput()함수와 역할 중복
+Gate.cpp 및 Gate.h파일: teleport()함수의 currentDirection 파라미터 값을 참조가 아닌 값으로 받도록 변경, srand()삭제
+Game.cpp: 틱 구현(임시: 0.1초), 기타 함수 기능 구현
+Item.cpp: srand()삭제, 오타수정(removeOldItem()함수), 기타 오류 수정
+main.cpp: game.run()을 통해 게임이 실행되도록 변경, srand()추가(main에서 한번만 실행되도록)
+
+- 개선 필요사항 -
+Snake.cpp: snake가 반대방향으로 움직이면 게임오버가 되어야 하는데 반대방향 입력 자체가 안됨, 길이도 3 미만으로 떨어지지 않아 게임오버 불가 -> 수정필요
+Gate.cpp: 코드 수정으로 인해 teleport()함수의 진출 방향 보완 필요 Game으로 진출 방향값도 함께 반환하도록 변경하거나 snake.setDirection()으로 직접 방향 변경
+Item.cpp: 시간 호환이 맞지 않음 - time기반에서 tick기반으로 변경 필요, 아이템이 3개 넘게 생성되는 버그 있음, 아이템 삭제가 제대로 되지 않고 남아있는 버그가 있음(판정은 되지 않지만 맵에서 지워지지 않음) - 버그 수정 필요
+
+* 기존 코드 변경점들이 많으니 기존 코드 사용하지 마시고 수정된 파일 기반으로 수정해주세요.

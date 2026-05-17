@@ -9,7 +9,7 @@
 - 단계별 기능 구현 (1~5단계)
 */
 
-Game::Game() : map(21,21), snake({10, 10}), gameOver(false), gateExist(false){
+Game::Game() : map(21,21), snake({10, 10}), gameOver(false), gateExist(false), itemTime(0){
     init();
 };
 
@@ -23,7 +23,7 @@ void Game::run(){
     int gateTime = 0;
     while(!isGameOver()){
         // 5초마다 게이트 위치 변경 (통과중에는 변경 X)
-        if(gateTime > 50){
+        if(gateTime >= 50){
             if(!gate.isSnakePassing(map, snake)){
                 gate.remove(map);
                 gateExist = false;
@@ -73,6 +73,22 @@ void Game::update(){
         gateExist = true;
     }
 
+    // 아이템 제거
+        item.removeOldItems(map);
+
+    // 아이템 생성(1초 주기)
+    if(itemTime >= 10){
+        // 아이템 생성
+        if(rand() % 100 < 50){
+            item.spawnGrowth(map);
+        }
+        else{
+            item.spawnPoison(map);
+        }
+        itemTime = 0;
+    }
+    itemTime++;
+
     // 스네이크 이동
     snake.move();
     Position head = snake.getHead();
@@ -99,6 +115,16 @@ void Game::update(){
     if(cell == GATE){
         Position newPos = gate.teleport(head, snake.getDirection(), map);
         snake.teleportHead(newPos);
+    }
+
+    // 아이템 충돌
+    int itemCollision = item.checkCollision(head);
+    if(itemCollision == GROWTH_ITEM){
+        snake.grow();
+    }
+
+    if(itemCollision == POISON_ITEM){
+        snake.shrink();
     }
 
     // 자기 몸 충돌
@@ -135,6 +161,14 @@ void Game::render(int w, int h){
                 case 4:
                     shape = '4';
                     color = 4;
+                    break;
+                case 5:
+                    shape = '5';
+                    color = 5;
+                    break;
+                case 6:
+                    shape = '6';
+                    color = 6;
                     break;
                 case 7:
                     shape = '7';

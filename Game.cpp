@@ -211,5 +211,8 @@ void Game::render(int w, int h){
 
 // 게임 종료 조건 체크
 bool Game::isGameOver(){
+//snake.isGameover() &  game.gameOver() 연동
+    if (snake.isGameOver()) gameOver = true;
+    
     return gameOver;
 };

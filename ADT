@@ -136,7 +136,7 @@ public:
     void removeOldItems(Map& map); //Map 객체 참조 파라미터 map 추가
 
     // Snake와 충돌 체크
-    int checkCollision(Position head);
+    int checkCollision(Position head, Map& map); //Map 객체 참조 파라미터 map 추가
     /*
         [반환값]
         growth 아이템 : 5

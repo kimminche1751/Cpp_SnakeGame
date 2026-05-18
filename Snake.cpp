@@ -1,38 +1,75 @@
+// Snake.cpp
+
 #include "Snake.h"
 
+// 생성자
+
 Snake::Snake(Position start) {
+
+    /*
+    시작 방향:
+    RIGHT
+    */
+
     body.push_back(start);
 
-    // 초기 몸통 3칸
     body.push_back({start.first, start.second - 1});
+
     body.push_back({start.first, start.second - 2});
 
     dir = RIGHT;
+
+    gameOver = false;
 }
+
+// 방향 설정
 
 void Snake::setDirection(Direction newDir) {
 
-    // 반대 방향 입력 금지
+    /*
+    반대 방향 이동 시 게임오버
+    */
+
     if ((dir == UP && newDir == DOWN) ||
         (dir == DOWN && newDir == UP) ||
         (dir == LEFT && newDir == RIGHT) ||
         (dir == RIGHT && newDir == LEFT)) {
+
+        gameOver = true;
+
         return;
     }
 
     dir = newDir;
 }
 
-Direction Snake::getDirection() {
+
+// 현재 방향 반환
+
+Direction Snake::getDirection() const {
     return dir;
 }
 
+
+// 이동
+
 void Snake::move() {
 
+    /*
+    이동 방식
+
+    1. 현재 head 기준 새 head 생성
+    2. vector 맨 앞에 삽입
+    3. 마지막 tail 제거
+
+    */
+
     Position head = body[0];
+
     Position newHead = head;
 
     switch (dir) {
+
         case UP:
             newHead.first--;
             break;
@@ -50,44 +87,79 @@ void Snake::move() {
             break;
     }
 
-    // 머리 추가
+    // 새 머리 추가
     body.insert(body.begin(), newHead);
 
     // 꼬리 제거
     body.pop_back();
 }
 
+
+// 성장
+
 void Snake::grow() {
 
-    // 마지막 꼬리 복사
+    /*
+    마지막 tail 복사
+
+    길이 +1
+    */
+
     Position tail = body.back();
 
     body.push_back(tail);
 }
 
+// 감소
+
 void Snake::shrink() {
 
-    // 길이 최소 3 유지
-    if (body.size() > 3) {
-        body.pop_back();
+    /*
+    Poison Item 처리
+
+    길이 감소
+
+    길이가 3 미만이면 실패
+    */
+
+    body.pop_back();
+
+    if (body.size() < 3) {
+        gameOver = true;
     }
 }
 
-Position Snake::getHead() {
+// 머리 반환
+
+Position Snake::getHead() const {
+
     return body[0];
 }
 
-vector<Position> Snake::getBody() {
+// 몸 전체 반환
+const vector<Position>& Snake::getBody() const {
+
     return body;
 }
 
+// 자기 몸 충돌 검사
+
 bool Snake::checkSelfCollision() {
+
+    /*
+    head와 body 비교
+
+    충돌 시 게임오버
+    */
 
     Position head = body[0];
 
     for (int i = 1; i < body.size(); i++) {
 
         if (head == body[i]) {
+
+            gameOver = true;
+
             return true;
         }
     }
@@ -95,6 +167,21 @@ bool Snake::checkSelfCollision() {
     return false;
 }
 
+// Gate 텔레포트
 void Snake::teleportHead(Position newPos) {
+
+    /*
+    Gate 통과 시 사용
+
+    head 좌표 강제 변경
+    */
+
     body[0] = newPos;
+}
+
+// 게임오버 여부 반환
+
+bool Snake::isGameOver() const {
+
+    return gameOver;
 }

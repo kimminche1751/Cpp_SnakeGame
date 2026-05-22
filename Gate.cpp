@@ -5,7 +5,6 @@
 Gate::Gate() {
     gateA = {-1, -1};
     gateB = {-1, -1};
-    srand((unsigned int)time(NULL));
 }
 
 void Gate::generate(Map& map) {
@@ -36,7 +35,7 @@ void Gate::generate(Map& map) {
     }
 }
 
-Position Gate::teleport(Position currentHead, Direction currentDirection, Map& map) {
+Position Gate::teleport(Position currentHead, Direction currentDirection, Map& map, Snake& snake) {
     int w = map.getWidth();
     int h = map.getHeight();
 
@@ -83,6 +82,7 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
             }
         }
     }
+    snake.setDirection(currentDirection);
     return exitGate; 
 }
 

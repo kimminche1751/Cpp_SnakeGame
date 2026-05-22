@@ -17,7 +17,7 @@ public:
     void generate(Map& map);
     
     // 2. 텔레포트: 출구 좌표를 반환하고 뱀의 진행 방향을 규칙에 맞게 수정
-    Position teleport(Position currentHead, Direction currentDirection, Map& map);
+    Position teleport(Position currentHead, Direction currentDirection, Map& map, Snake& snake);
 
     // 3. 통과 확인: 뱀의 몸통이 게이트 위에 있는지 확인 (소멸 방지용)
     bool isSnakePassing(Map& map, Snake& snake);

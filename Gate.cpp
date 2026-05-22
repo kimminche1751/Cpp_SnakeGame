@@ -82,6 +82,20 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
             }
         }
     }
+    Direction oldDir = snake.getDirection();
+    
+    // 현재 방향과 나갈 방향이 '정확히 180도 반대'일 때만 작동!
+    if ((oldDir == UP && currentDirection == DOWN) ||
+        (oldDir == DOWN && currentDirection == UP) ||
+        (oldDir == LEFT && currentDirection == RIGHT) ||
+        (oldDir == RIGHT && currentDirection == LEFT)) {
+        
+        // 90도 꺾이는 임시 방향을 하나 계산
+        Direction tempDir = (oldDir == UP || oldDir == DOWN) ? LEFT : UP;
+        
+        // 1차: 임시 방향으로 한 번 꺾기
+        snake.setDirection(tempDir);
+    }
     snake.setDirection(currentDirection);
     return exitGate; 
 }

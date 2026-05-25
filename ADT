@@ -113,11 +113,13 @@ public:
 // ==========================
 class Item {
 private:
-    vector<Position> growthItems;
-    vector<Position> poisonItems;
-/* 수정사항 : 아이템 시간정보 컨테이너 2개 추가*/
-    vector<unsigned int> growthItemTime;
-    vector<unsigned int> growthItemTime;
+    /*수정사항 : 아이템 정보 컨테이너를 통합 후, 종류, 위치, 시간으로 다시 구분*/
+    vector<int> itemTypes; //아이템 종류 목록
+    vector<Position> itemPositions; //아이템의 위치 목록
+    vector<unsigned int> itemTimes; //아이템의 시간 목록
+
+    void spawnItem(Map& map, int type); //아이템 생성 처리
+    void deleteItem(Map& map, int& i); //아이템 삭제 처리
 
 public:
     /*
@@ -137,10 +139,15 @@ public:
 
     // Snake와 충돌 체크
     int checkCollision(Position head, Map& map); //Map 객체 참조 파라미터 map 추가
+
+    //snake head, tail swap 아이템 동작 구현
+    void swapTailAndHead(Snake &snake);
+
     /*
         [반환값]
         growth 아이템 : 5
         poison 아이템 : 6
+        swap 아이템 : 8
         *추후 아이템 추가 시 배열 요소에 할당되는 번호와 통일하여 작성 예정
     */
 };

@@ -31,7 +31,7 @@ enum Direction {
 | 5 | Growth Item |
 | 6 | Poison Item |
 | 7 | Gate        |
-
+| 8 | Swap        |
 
 
 2️⃣ Map 인터페이스
@@ -67,8 +67,10 @@ enum Direction {
 | ----------------------------------- | ---------- |
 | `void spawnGrowth(Map&)`            | Growth 생성  |
 | `void spawnPoison(Map&)`            | Poison 생성  |
+| `void spawnSwap(Map&)`              | Swap 생성  |
 | `void removeOldItems(Map&)`             | 일정 시간 후 삭제 | //ADT에 맞게 인터페이스의 파라미터 수정
 | `int checkCollision(Position head, Map&)` | 충돌 시 타입 반환 | //ADT에 맞게 인터페이스의 파라미터 수정
+| `void swapTailAndHead(Snake& snake);`| Swap 아이템 동작 구현|
 
 
 5️⃣ Gate 인터페이스

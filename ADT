@@ -133,6 +133,7 @@ public:
 
     void spawnGrowth(Map& map);
     void spawnPoison(Map& map);
+    void spawnSwap(Map& map);
 
     // 아이템 삭제 (시간 경과)
     void removeOldItems(Map& map); //Map 객체 참조 파라미터 map 추가

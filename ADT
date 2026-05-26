@@ -109,6 +109,12 @@ public:
 
     // 게임오버 여부 반환
     bool isGameOver() const;
+
+    // 꼬리 위치 반환
+    Position getTail() const;
+
+    // 꼬리 진행 방향 반환
+    Direction getTailDirection() const;
 };
 
 // ==========================

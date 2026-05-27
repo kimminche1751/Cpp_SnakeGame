@@ -20,7 +20,8 @@ enum cellTypes{
     SNAKE_BODY = 4,
     GROWTH_ITEM = 5,
     POISON_ITEM = 6,
-    GATE = 7,
+    SWAP_ITEM = 7,
+    GATE = 8,
 };
 
 // 좌표 (Map에서 위치 표현)

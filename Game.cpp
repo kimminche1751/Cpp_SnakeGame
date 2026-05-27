@@ -154,38 +154,38 @@ void Game::render(int w, int h){
     for(int i = 0; i < h; i++){
         for(int j = 0; j < w; j++){
             int cell = map.getCell(j, i);
-            char shape = '0';
+            chtype shape = ' ';
             int color = 0;
             switch(cell){
                 case 0:
-                    shape = '0';
+                    shape = ' ';
                     break;
                 case 1:
-                    shape = '1';
+                    shape = ACS_CKBOARD;
                     color = 1;
                     break;
                 case 2:
-                    shape = '2';
+                    shape = ACS_CKBOARD;
                     color = 2;
                     break;
                 case 3:
-                    shape = '3';
+                    shape = ACS_BLOCK;
                     color = 3;
                     break;
                 case 4:
-                    shape = '4';
+                    shape = ACS_BLOCK;
                     color = 4;
                     break;
                 case 5:
-                    shape = '5';
+                    shape = 'O';
                     color = 5;
                     break;
                 case 6:
-                    shape = '6';
+                    shape = 'O';
                     color = 6;
                     break;
-                case 7:
-                    shape = '7';
+                case 8:
+                    shape = ACS_DIAMOND;
                     color = 7;
                     break;
                 default:
@@ -204,15 +204,15 @@ void Game::render(int w, int h){
         int y = body[i].first;
         int x = body[i].second;
 
-        char shape = '0';
+        chtype shape = ' ';
         int color = 3;
 
         if(i == 0){
-            shape = '3';
+            shape = ACS_BLOCK;
             color = 3;
         }
         else{
-            shape = '4';
+            shape = ACS_BLOCK;
             color = 4;
         }
         

@@ -1,0 +1,5 @@
+Map.h
+enum에서 GATE를 8번으로 정의하고 SWAP_ITEM을 7번으로 추가
+
+Game.cpp
+render() 함수 수정, chtype을 이용한 비주얼 업데이트

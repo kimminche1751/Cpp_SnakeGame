@@ -5,8 +5,13 @@
 
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 using namespace std;
+
+// ==========================
+// 기본 자료형
+// ==========================
 
 typedef pair<int, int> Position;
 
@@ -17,6 +22,10 @@ enum Direction {
     LEFT,
     RIGHT
 };
+
+// ==========================
+// Snake ADT
+// ==========================
 
 class Snake {
 private:
@@ -74,6 +83,12 @@ public:
 
     // 게임오버 여부 반환
     bool isGameOver() const;
+
+    // 꼬리 진행 방향 반환
+    Direction getTailDirection() const;
+
+    //머리와 꼬리 위치 변경(swap 아이템)
+    void swapTailAndHead();
 };
 
 #endif

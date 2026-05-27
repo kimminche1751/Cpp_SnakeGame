@@ -1,0 +1,12 @@
+[Item]
+1. 아이템 별로 따로 존재하던 위치, 시간 벡터를 통합하고 아이템 종류 벡터를 추가하였습니다.
+2. spawnGrowth()와 spawnPoison()의 동작이 유사하여 private 함수 spawnItem()을 추가해 실제 동작은 이 함수에서 하고, 
+기존 함수들은 spawnItem을 호출하는 방식으로 변경하였습니다.
+3. 기존 인터페이스와의 통일성을 위해 swap  아이템을 생성하는 spawnSwap() 메서드도 동일하게 구현했습니다.
+4. removeOldItems와 checkCollision에서 아이템 삭제 코드가 중복되어 private 함수 deleteItem()를 추가하여 이 함수를 호출하도록 변경하였습니다.
+5. swapTailAndHead() 메서드 구현 클래스가 Item에서 Snake로 변경되면서 swapTailAndHead() 메서드를 삭제하였습니다.
+
+[Snake]
+1. swapTailAndHead() 메서드를 Snake 클래스에 추가하였습니다.
+2. swapTailAndHead() 메서드 내에서 body 벡터를 뒤집을 때 std::reverse() 함수를 사용하기 위해 <algorithm> 헤더를 포함시켰습니다.
+3. swapTailAndHead() 메서드를 Snake에서 구현하면서 getTail()메서드가 더이상 사용되지 않아 삭제하였습니다.

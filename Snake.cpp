@@ -1,5 +1,3 @@
-// Snake.cpp
-
 #include "Snake.h"
 
 // 생성자
@@ -7,6 +5,10 @@
 Snake::Snake(Position start) {
 
     /*
+    초기 Snake 형태
+
+    [H][B][B]
+
     시작 방향:
     RIGHT
     */
@@ -27,6 +29,8 @@ Snake::Snake(Position start) {
 void Snake::setDirection(Direction newDir) {
 
     /*
+    Rule #1
+
     반대 방향 이동 시 게임오버
     */
 
@@ -49,7 +53,6 @@ void Snake::setDirection(Direction newDir) {
 Direction Snake::getDirection() const {
     return dir;
 }
-
 
 // 이동
 
@@ -94,7 +97,6 @@ void Snake::move() {
     body.pop_back();
 }
 
-
 // 성장
 
 void Snake::grow() {
@@ -129,18 +131,20 @@ void Snake::shrink() {
     }
 }
 
+
 // 머리 반환
 
 Position Snake::getHead() const {
-
     return body[0];
 }
 
-// 몸 전체 반환
-const vector<Position>& Snake::getBody() const {
 
+// 몸 전체 반환
+
+const vector<Position>& Snake::getBody() const {
     return body;
 }
+
 
 // 자기 몸 충돌 검사
 
@@ -167,7 +171,9 @@ bool Snake::checkSelfCollision() {
     return false;
 }
 
+
 // Gate 텔레포트
+
 void Snake::teleportHead(Position newPos) {
 
     /*
@@ -182,6 +188,85 @@ void Snake::teleportHead(Position newPos) {
 // 게임오버 여부 반환
 
 bool Snake::isGameOver() const {
-
     return gameOver;
 }
+
+// 꼬리 진행 방향 반환
+
+Direction Snake::getTailDirection() const {
+
+    /*
+    tail 기준으로
+    마지막 두 칸 비교
+
+    body[n-2] -> body[n-1]
+    방향 계산
+    */
+
+    int n = body.size();
+
+    Position beforeTail = body[n - 2];
+
+    Position tail = body[n - 1];
+
+    // tail이 아래쪽
+    if (tail.first > beforeTail.first)
+        return DOWN;
+
+    // tail이 위쪽
+    if (tail.first < beforeTail.first)
+        return UP;
+
+    // tail이 오른쪽
+    if (tail.second > beforeTail.second)
+        return RIGHT;
+
+    // tail이 왼쪽
+    return LEFT;
+}
+
+
+//머리와 꼬리 Swap
+void Snake::swapTailAndHead(){
+    Direction tailDir = getTailDirection(); //꼬리의 현재 진행방향
+    Direction newDir;
+    reverse(body.begin(), body.end()); //snake 뒤집기
+    if(tailDir == getDirection()){ //꼬리가 머리와 진행방향이 같으면 방향을 바로 180도 바꿀 수 없으므로 따로 처리
+        switch (tailDir)
+        {
+        case UP:
+            setDirection(RIGHT); //90도씩 머리 방향을 2회 돌림
+            setDirection(DOWN);
+            break;
+        case DOWN:
+            setDirection(LEFT);
+            setDirection(UP);
+            break;
+        case RIGHT:
+            setDirection(DOWN);
+            setDirection(LEFT);
+            break;
+        case LEFT:
+            setDirection(UP);
+            setDirection(RIGHT);
+            break;
+        }
+    }
+    else{ //기존의 머리 방향과 꼬리 진행방향이 다르면 바로 방향을 180도 변경
+        switch (tailDir)
+        {
+        case UP:
+            setDirection(DOWN);
+            break;
+        case DOWN:
+            setDirection(UP);
+            break;
+        case RIGHT:
+            setDirection(LEFT);
+            break;
+        case LEFT:
+            setDirection(RIGHT);
+            break;
+        }
+    }
+} 

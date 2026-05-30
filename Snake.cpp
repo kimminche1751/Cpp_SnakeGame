@@ -229,44 +229,33 @@ Direction Snake::getTailDirection() const {
 //머리와 꼬리 Swap
 void Snake::swapTailAndHead(){
     Direction tailDir = getTailDirection(); //꼬리의 현재 진행방향
-    Direction newDir;
     reverse(body.begin(), body.end()); //snake 뒤집기
-    if(tailDir == getDirection()){ //꼬리가 머리와 진행방향이 같으면 방향을 바로 180도 바꿀 수 없으므로 따로 처리
-        switch (tailDir)
-        {
-        case UP:
-            setDirection(RIGHT); //90도씩 머리 방향을 2회 돌림
-            setDirection(DOWN);
-            break;
-        case DOWN:
-            setDirection(LEFT);
-            setDirection(UP);
-            break;
-        case RIGHT:
-            setDirection(DOWN);
-            setDirection(LEFT);
-            break;
-        case LEFT:
-            setDirection(UP);
+    switch (tailDir)
+    {
+    case UP:
+        if(dir == DOWN){
             setDirection(RIGHT);
-            break;
         }
-    }
-    else{ //기존의 머리 방향과 꼬리 진행방향이 다르면 바로 방향을 180도 변경
-        switch (tailDir)
-        {
-        case UP:
-            setDirection(DOWN);
-            break;
-        case DOWN:
-            setDirection(UP);
-            break;
-        case RIGHT:
+        setDirection(UP);
+        break;
+    case DOWN:
+        if(dir == UP){
             setDirection(LEFT);
-            break;
-        case LEFT:
-            setDirection(RIGHT);
-            break;
         }
+        setDirection(DOWN);
+        break;
+    case RIGHT:
+        if(dir == LEFT){
+            setDirection(DOWN);
+        }
+        setDirection(RIGHT);
+        break;
+    case LEFT:
+        if(dir == RIGHT){
+            setDirection(UP);
+        }
+        setDirection(LEFT);
+        break;
     }
+    
 } 

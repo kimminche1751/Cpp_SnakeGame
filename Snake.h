@@ -13,7 +13,7 @@ using namespace std;
 // 기본 자료형
 // ==========================
 
-typedef pair<int, int> Position;
+typedef pair<int, int> Position; // 각 칸 위치 관리
 
 // 방향
 enum Direction {

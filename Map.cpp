@@ -1,3 +1,10 @@
+/*
+스테이지별 맵을 구성하고 맵에 대한 데이터를 제공하는 클래스
+- 스테이지별 크기에 따라 n*n사이즈의 기본 맵 구성(초기화)
+- 스테이지별로 정의된 맵 구조 생성
+- Map에 대한 데이터를 제공(특정 위치의 벡터값 등)
+*/
+
 #include "Map.h"
 
 Map::Map(int w, int h){
@@ -20,6 +27,7 @@ void Map::initialize(){
     grid[height - 1][width - 1] = IMMUNE_WALL;
 };
 
+// 스테이지별 맵 구성
 void Map::makeStage(int stage, int mapSize){
     int mid = mapSize / 2;
     int quarter = mid / 2;

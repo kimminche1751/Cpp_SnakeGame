@@ -1,3 +1,10 @@
+/*
+ncurses를 이용하여 게임의 기본 세팅과 스테이지 관리, 종료를 담당하는 파일
+- ncurses를 이용하여 게임의 기본 환경 세팅
+- 스테이지 관리 -> Game에 스테이지의 기본 정보를 넘겨주고 실행
+- 종료 조건이 만족되면 반복문이 종료되고 프로그램 종료
+*/
+
 #include <ncurses.h>
 #include <cstdlib>
 #include <ctime>

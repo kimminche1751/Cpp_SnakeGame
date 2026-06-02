@@ -1,13 +1,14 @@
-#include "Game.h"
-
 /*
-[구현해야 할 것]
+게임의 전체 동작을 관리하는 클래스
 - 전체 게임 루프 관리
 - 입력 처리 (방향키)
 - tick 기반 이동
 - 충돌 검사
-- 단계별 기능 구현 (1~5단계)
+- 게임오버 / 클리어 검사
+- 맵 그리기
 */
+
+#include "Game.h"
 
 Game::Game(int stage, int mapSize, int spawnPos, int t_len, int t_grow, int t_poison, int t_swap, int t_gate) : map(mapSize, mapSize), snake({spawnPos, spawnPos}), score(stage, mapSize, t_len, t_grow, t_poison, t_swap, t_gate), gameOver(false), gateExist(false), itemTime(0){
     this->stage = stage;

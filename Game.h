@@ -1,3 +1,7 @@
+/*
+Game.cpp파일의 요소가 정의된 헤더 파일
+*/
+
 #ifndef GAME_H
 #define GAME_H
 

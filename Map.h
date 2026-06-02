@@ -1,3 +1,8 @@
+/*
+Map.cpp파일의 요소가 정의된 헤더 파일
+Map의 기본 요소가 enum을 통해 정의됨
+*/
+
 #ifndef MAP_H
 #define MAP_H
 

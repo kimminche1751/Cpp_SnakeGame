@@ -1,3 +1,5 @@
+// Scoreboard.cpp 파일의 요소가 정의된 헤더 파일
+
 #ifndef SCOREBOARD_H
 #define SCOREBOARD_H
 
@@ -23,6 +25,7 @@ public:
     - 현재 길이 / 최대 길이
     - 성장 아이템 획득 수
     - 독 아이템 획득 수
+    - 위치전환 아이템 획득 수
     - 게이트 사용 횟수
     - 미션 달성 여부
     */

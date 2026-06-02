@@ -3,9 +3,9 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include <vector>
-#include <utility>
-#include <algorithm>
+#include <vector> // snake Head, Body, Tail 관리
+#include <utility> // pair 사용
+#include <algorithm> // reverse 사용
 
 using namespace std;
 

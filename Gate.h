@@ -2,7 +2,7 @@
 #define GATE_H
 
 #include <vector>
-#include "Map.h"   // 팀원 파일명에 맞춤
+#include "Map.h"   
 #include "Snake.h"
 
 class Gate {
@@ -20,7 +20,7 @@ public:
     Position teleport(Position currentHead, Direction currentDirection, Map& map, Snake& snake);
 
     // 3. 통과 확인: 뱀의 몸통이 게이트 위에 있는지 확인 (소멸 방지용)
-    bool isSnakePassing(Map& map, Snake& snake);
+    bool isSnakePassing(const Map& map, const Snake& snake) const;
 
     // 4. 게이트 제거: 생성된 게이트를 다시 일반 벽(1)으로 되돌림
     void remove(Map& map);

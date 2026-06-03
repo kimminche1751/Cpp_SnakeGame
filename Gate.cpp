@@ -9,8 +9,8 @@ Gate::Gate() {
 
 void Gate::generate(Map& map) {
     std::vector<Position> wallList;
-    int w = map.getWidth();
-    int h = map.getHeight();
+    const int w = map.getWidth();
+    const int h = map.getHeight();
 
     // 1. 일반 벽(WALL) 스캔 (Immune Wall은 제외) 
     for (int y = 0; y < h; ++y) {
@@ -36,17 +36,17 @@ void Gate::generate(Map& map) {
 }
 
 Position Gate::teleport(Position currentHead, Direction currentDirection, Map& map, Snake& snake) {
-    int w = map.getWidth();
-    int h = map.getHeight();
+    const int w = map.getWidth();
+    const int h = map.getHeight();
 
     // 1. 출구 게이트 결정
-    Position exitGate = (currentHead.first == gateA.first && currentHead.second == gateA.second) ? gateB : gateA;
+    const Position exitGate = (currentHead.first == gateA.first && currentHead.second == gateA.second) ? gateB : gateA;
 
-    int ey = exitGate.first;
-    int ex = exitGate.second;
+    const int ey = exitGate.first;
+    const int ex = exitGate.second;
 
     // 2. 진출 방향 규칙 적용
-    bool isEdge = (ey == 0 || ey == h - 1 || ex == 0 || ex == w - 1);
+    const bool isEdge = (ey == 0 || ey == h - 1 || ex == 0 || ex == w - 1);
 
     if (isEdge) {
         // [규칙 4-1] 가장자리 벽: 무조건 안쪽 진출 
@@ -66,7 +66,7 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
         }
 
         for (int i = 0; i < 4; ++i) {
-            Direction checkDir = priorities[i];
+            const Direction checkDir = priorities[i];
             int nx = ex, ny = ey;
             if (checkDir == UP) ny--;
             else if (checkDir == DOWN) ny++;
@@ -74,7 +74,7 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
             else if (checkDir == RIGHT) nx++;
 
             if (map.isInside(nx, ny)) {
-                int cellValue = map.getCell(nx, ny);
+                const int cellValue = map.getCell(nx, ny);
                 if (cellValue != WALL && cellValue != IMMUNE_WALL && cellValue != GATE) {
                     currentDirection = checkDir;
                     break;
@@ -82,7 +82,7 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
             }
         }
     }
-    Direction oldDir = snake.getDirection();
+    const Direction oldDir = snake.getDirection();
     
     // 현재 방향과 나갈 방향이 '정확히 180도 반대'일 때만 작동!
     if ((oldDir == UP && currentDirection == DOWN) ||
@@ -91,7 +91,7 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
         (oldDir == RIGHT && currentDirection == LEFT)) {
         
         // 90도 꺾이는 임시 방향을 하나 계산
-        Direction tempDir = (oldDir == UP || oldDir == DOWN) ? LEFT : UP;
+        const Direction tempDir = (oldDir == UP || oldDir == DOWN) ? LEFT : UP;
         
         // 1차: 임시 방향으로 한 번 꺾기
         snake.setDirection(tempDir);
@@ -100,9 +100,9 @@ Position Gate::teleport(Position currentHead, Direction currentDirection, Map& m
     return exitGate; 
 }
 
-bool Gate::isSnakePassing(Map& map, Snake& snake) {
+bool Gate::isSnakePassing(const Map& map, const Snake& snake) const {
     // [규칙 3] 뱀이 통과 중이면 게이트 소멸 방지 
-    std::vector<Position> body = snake.getBody();
+    const std::vector<Position>& body = snake.getBody();
     for (const auto& pos : body) {
         if ((pos.first == gateA.first && pos.second == gateA.second) ||
             (pos.first == gateB.first && pos.second == gateB.second)) {

@@ -81,9 +81,18 @@ int Game::run(){
 // 입력 처리
 void Game::processInput(){
 
-    int ch = getch();
+    int ch;
+    int last_ch = ERR;
 
-    switch (ch) {
+    while((ch = getch()) != ERR){
+        last_ch = ch;
+    }
+
+    if(last_ch == ERR){
+        return;
+    }
+
+    switch (last_ch) {
 
         case KEY_UP:
             snake.setDirection(UP);
